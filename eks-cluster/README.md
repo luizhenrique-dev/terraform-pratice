@@ -72,10 +72,10 @@ aws_vpc.demo
 ```
 
 ## Recursos Provisionados por Default na AWS
-Região AWS: sa-east-1
-ID AMI: ami-01f2084a82b314981
-Nome da AMI: amazon-eks-node-1.21-v20220303
-Instância EC2: t3.medium 2 vCPU 4GB RAM 
+Região AWS: sa-east-1  
+ID AMI: ami-01f2084a82b314981  
+Nome da AMI: amazon-eks-node-1.21-v20220303  
+Instância EC2: t3.medium 2 vCPU 4GB RAM   
 Volume: 20 GB tipo: gp2 - Não criptografado
 
 ## Operação do Cluster Kubernetes
@@ -83,6 +83,7 @@ Volume: 20 GB tipo: gp2 - Não criptografado
 * Em seguida executar: `chmod +x aws-iam-authenticator`
 * `sudo mv aws-iam-authenticator /usr/local/bin`
 * Checar a versão: `aws-iam-authenticator version`
+* Garante que o ambiente foi provisionado utilizando o `terraform apply`
 * Instalar o [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) em sua máquina
 * Execute: `rm ~/.kube/config` para remover a configuração prévia de outro cluster
 * Execute: `terraform output kubeconfig > ~/.kube/config`
