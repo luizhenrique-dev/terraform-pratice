@@ -1,4 +1,6 @@
 # Configuração do Ambiente
+Neste exemplo não estamos usando o terraform EKS module, apenas o resource provido pela AWS  
+Instalar o [aws cli](https://docs.aws.amazon.com/pt_br/cli/latest/userguide/cli-chap-welcome.html) e configurar de acordo com sua conta na AWS
 
 ## Setup Usuário
 ```bash
@@ -25,7 +27,7 @@ particular IAMTerraformEKSClusterManagerPolicy sendo ela:
                 "iam:DeleteRole",
                 "iam:PassRole"
             ],
-            "Resource": "arn:aws:iam::*:role/terraform-eks-demo-cluster"
+            "Resource": "arn:aws:iam::*:role/terraform-eks-cluster"
         },
         {
             "Effect": "Allow",
@@ -37,7 +39,7 @@ particular IAMTerraformEKSClusterManagerPolicy sendo ela:
                 "iam:DeleteRole",
                 "iam:PassRole"
             ],
-            "Resource": "arn:aws:iam::*:role/terraform-eks-demo-node"
+            "Resource": "arn:aws:iam::*:role/terraform-eks-node-group"
         }
     ]
 }
@@ -81,3 +83,11 @@ Volume: 20 GB tipo: gp2 - Não criptografado
 * Em seguida executar: `chmod +x aws-iam-authenticator`
 * `sudo mv aws-iam-authenticator /usr/local/bin`
 * Checar a versão: `aws-iam-authenticator version`
+* Instalar o [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) em sua máquina
+* Execute: `rm ~/.kube/config` para remover a configuração prévia de outro cluster
+* Execute: `terraform output kubeconfig > ~/.kube/config`
+* Em seguida abra o arquivo criado e remova os trechos `<<EOT` e `EOT` e salve
+* Em seguida o comando `kubectl cluster-info` deve executar com sucesso
+* Por fim execute `kubectl apply -f /media/WORK/devops/terraform-pratice/eks-cluster/kubernetes/app.yaml`
+* Após uns 5 minutos execute `kubectl get svc`
+* Deverá ser possível acessar o EXTERNAL-IP do external-nginx-service pela internet e assim cairá na tela inicial do NGINX
