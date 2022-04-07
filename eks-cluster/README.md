@@ -93,4 +93,7 @@ Volume: 20 GB tipo: gp2 - Não criptografado
 12. Por fim execute `kubectl apply -f /media/WORK/devops/terraform-pratice/eks-cluster/kubernetes/app.yaml`
 13. Após uns 5 minutos execute `kubectl get svc`
 14. Deverá ser possível acessar o EXTERNAL-IP do external-nginx-service pela internet e assim cairá na tela inicial do NGINX
-15. Fim!! Seu cluster está em execução na AWS e sua aplicação acessível pela internet :D
+15. Fim!! Seu cluster está em execução na AWS e sua aplicação NGINX acessível pela internet :D
+
+**Importante:** Após aplicar o *app.yaml* em seu cluster é necessário remover manualmente os LoadBalancers criados pelo console da AWS afim de conseguir executar o `terraform 
+destroy` com sucesso.

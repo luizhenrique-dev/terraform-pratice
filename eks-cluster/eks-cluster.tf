@@ -41,8 +41,9 @@ resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSVPCResourceContr
   role       = aws_iam_role.eks-cluster.name
 }
 
+# Create the security group
 resource "aws_security_group" "eks-cluster" {
-  name        = "terraform-eks-demo-cluster"
+  name        = "terraform-eks-cluster"
   description = "Cluster communication with worker nodes"
   vpc_id      = aws_vpc.eks_vpc.id
 
@@ -58,6 +59,7 @@ resource "aws_security_group" "eks-cluster" {
   }
 }
 
+# Configura a permissão que minha máquina local se conecte no cluster, criando uma regra de ingress pro IP da sua workstation
 resource "aws_security_group_rule" "eks-cluster-ingress-workstation-https" {
   cidr_blocks       = [local.workstation-external-cidr]
   description       = "Permite que a sua workstation local se comunique com o cluster API Server"
@@ -68,6 +70,7 @@ resource "aws_security_group_rule" "eks-cluster-ingress-workstation-https" {
   type              = "ingress"
 }
 
+# Create the eks cluster
 resource "aws_eks_cluster" "eks" {
   # Name of the cluster.
   name     = var.cluster-name
