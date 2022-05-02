@@ -97,3 +97,11 @@ Volume: 20 GB tipo: gp2 - Não criptografado
 
 **Importante:** Após aplicar o *app.yaml* em seu cluster é necessário remover manualmente os LoadBalancers criados pelo console da AWS afim de conseguir executar o `terraform 
 destroy` com sucesso.
+
+
+#Rodando no docker
+É possivel executar um container com todas as dependencias já instaladas para facilitar o processo.
+
+` docker run -it --rm -e AWS_ACCESS_KEY_ID=<key> -e AWS_SECRET_ACCESS_KEY=<acess_key> -e AWS_DEFAULT_REGION=<aws_region> --volume="eks-cluster:/root/terraform-pratice/eks-cluster" terraform-pratice:latest bash`
+
+O comando deve ser executado na pasta raiz do projeto, o comando acima cria um volume para persistir os dados do terraform na pasta local. 
